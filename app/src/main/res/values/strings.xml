@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">평택대학교 전자출결</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">아이디</string>
+    <string name="prompt_password">비밀번호</string>
+    <string name="action_sign_in">로그인</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"환영합니다."</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">비밀번호는 6자리 이상입니다.</string>
+    <string name="login_failed">"로그인 실패"</string>
+</resources>
