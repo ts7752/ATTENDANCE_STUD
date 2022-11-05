@@ -5,6 +5,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.job.JobScheduler;
@@ -23,6 +24,7 @@ import android.os.RemoteException;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +53,13 @@ public class BeaconActivity extends AppCompatActivity {
     // lin 폴더에 android-beacon-library-2.17.1.aar 포함되어 있음
     // java 에서의 lib 는 .jar 형태지만 .arr 경우는 jar  포함한 소스도 포함되어 있음
 
+    ImageButton imageButton;
+    TextView beacontime;
+
+    long mNow = System.currentTimeMillis();
+    Date mReDate = new Date(mNow);
+    SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    String formatDate = mFormat.format(mReDate);
 
     //TextView textView;
     final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
@@ -71,10 +80,24 @@ public class BeaconActivity extends AppCompatActivity {
 
     Region pRegion;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beacon);
+
+        imageButton = findViewById(R.id.beacon_back);
+        beacontime = findViewById(R.id.beacon_time);
+        beacontime.setText("현재 시각" + formatDate);
+
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),ListActivity.class);
+                startActivity(intent);
+            }
+        });
+
         // 피호출시 인자값 확인위해 선언
         Intent intent = getIntent();
 

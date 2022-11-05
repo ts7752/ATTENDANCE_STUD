@@ -45,6 +45,9 @@ import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 
+
+// 교수용 이었던것 ****************************************
+
 public class StudentList extends AppCompatActivity {
 
     // 비콘 관련 라이브러리는  altBeacon 사 library 사용 및 가이드 적용

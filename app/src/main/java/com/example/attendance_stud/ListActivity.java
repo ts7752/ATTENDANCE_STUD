@@ -1,22 +1,27 @@
 package com.example.attendance_stud;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 //import com.example.attendance_prof.data.model.BeaconScan;
 //import com.example.attendance_prof.data.model.ListViewModal;
 import com.example.attendance_stud.data.model.ListViewModal;
 import com.example.attendance_stud.ui.login.LoginActivity;
+import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,16 +37,29 @@ public class ListActivity extends AppCompatActivity {
     private ListView list;
     private String objId;
 
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+
     private String listBuf;
 
     private String username;
     private String password;
     //Type 추가함.
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
+
+        androidx.appcompat.widget.Toolbar toolbar = (androidx.appcompat.widget.Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.menubutton_foreground);
+
+        drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        navigationView = (NavigationView)findViewById(R.id.navigation_view);
 
 
         //Type값 저장을 위해 JSONObject 선언.
@@ -139,7 +157,6 @@ public class ListActivity extends AppCompatActivity {
                         // ListViewModal 단일 in,out 에 값 셋팅
                         listViewModal.setUserId(responseJSON.getString("userId"));
                         listViewModal.setPass(responseJSON.getString("userPasswrd"));
-                        //Type추가함. 수업 리스트에 보여주는 것이라 빼도 될것으로 예상됌. (추가했을 때 에러 발생하였음 11.03 10:25)
                         listViewModal.setTtOrder(object.getInt("TT_ORDER"));
                         listViewModal.setTtTimeStart(object.getString("TT_TIME_START"));
                         listViewModal.setTtTimeEnd(object.getString("TT_TIME_END"));
@@ -246,10 +263,27 @@ public class ListActivity extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case android.R.id.home:{
+                drawerLayout.openDrawer(GravityCompat.START);
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public void onBackPressed() {
         // 뒤로가기 버튼시 로그인 화면 이동하기
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
+        else {
+            super.onBackPressed();
+        }
+
         Intent intent = new Intent( getApplicationContext(), LoginActivity.class );
         startActivity( intent );
     }
