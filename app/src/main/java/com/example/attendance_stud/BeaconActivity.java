@@ -1,5 +1,6 @@
 package com.example.attendance_stud;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -19,6 +20,7 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.os.RemoteException;
 
 import android.util.Log;
@@ -43,6 +45,7 @@ import org.altbeacon.beacon.service.ScanJob;
 import org.altbeacon.beacon.startup.RegionBootstrap;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
@@ -53,13 +56,7 @@ public class BeaconActivity extends AppCompatActivity {
     // lin 폴더에 android-beacon-library-2.17.1.aar 포함되어 있음
     // java 에서의 lib 는 .jar 형태지만 .arr 경우는 jar  포함한 소스도 포함되어 있음
 
-    ImageButton imageButton;
-    TextView beacontime;
-
-    long mNow = System.currentTimeMillis();
-    Date mReDate = new Date(mNow);
-    SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    String formatDate = mFormat.format(mReDate);
+    private TextView beacontime;
 
     //TextView textView;
     final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
@@ -86,17 +83,8 @@ public class BeaconActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beacon);
 
-        imageButton = findViewById(R.id.beacon_back);
         beacontime = findViewById(R.id.beacon_time);
-        beacontime.setText("현재 시각" + formatDate);
-
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),ListActivity.class);
-                startActivity(intent);
-            }
-        });
+        ShowTimeMethod();
 
         // 피호출시 인자값 확인위해 선언
         Intent intent = getIntent();
@@ -250,6 +238,32 @@ public class BeaconActivity extends AppCompatActivity {
         beaconManager.startMonitoring(new Region("myMonitoringUniqueId", null, null, null));
 
     }
+
+    //비콘 시간표시 액티비티.
+    public void ShowTimeMethod() {
+        final Handler handler = new Handler(){
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                beacontime.setText(DateFormat.getDateTimeInstance().format(new Date()));
+            }
+        };
+
+        Runnable task = new Runnable() {
+            @Override
+            public void run() {
+                while (true){
+                    try {
+                        Thread.sleep(1000);
+                    }catch (InterruptedException e){}
+                    handler.sendEmptyMessage(1);
+                }
+            }
+        };
+        Thread thread = new Thread(task);
+        thread.start();
+    }
+
+
     // alBeacon Api 가이드
     //위치 permission이 부여되야 한다.
     public void permissionCheck(){
