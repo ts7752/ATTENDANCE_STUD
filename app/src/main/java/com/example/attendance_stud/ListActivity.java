@@ -2,6 +2,7 @@ package com.example.attendance_stud;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +12,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -31,8 +31,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
- // 11.02 14:00 교수용 학생용 구분을 위해 Type추가함.
+
 public class ListActivity extends AppCompatActivity {
+
+    public static Context context;
 
     private ListView list;
     private String objId;
@@ -44,6 +46,7 @@ public class ListActivity extends AppCompatActivity {
 
     private String username;
     private String password;
+    private String userId;
     //Type 추가함.
 
     @SuppressLint("MissingInflatedId")
@@ -51,6 +54,8 @@ public class ListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
+
+        context = this;
 
         androidx.appcompat.widget.Toolbar toolbar = (androidx.appcompat.widget.Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -235,7 +240,7 @@ public class ListActivity extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), BeaconActivity.class);
 
                         // 위에서 배열로 저장해놓은 항목의 값을 추출하여 인자값으로 만듦
-                        //userType 추가함.
+
                         intent.putExtra("userId", dataModel.get(i).getUserId());
                         intent.putExtra("userPasswrd", dataModel.get(i).getPass());
                         intent.putExtra("TT_ORDER", dataModel.get(i).getTtOrder());
@@ -287,5 +292,19 @@ public class ListActivity extends AppCompatActivity {
         Intent intent = new Intent( getApplicationContext(), LoginActivity.class );
         startActivity( intent );
     }
+
+    public void setUserId(){ this.userId = userId;}
+
+    public String getUserId() {return userId;}
+
+
+    Intent intent3 = new Intent(getApplicationContext(),navi_header_1.class);
+
+
+
+
+
+
+
 
 }

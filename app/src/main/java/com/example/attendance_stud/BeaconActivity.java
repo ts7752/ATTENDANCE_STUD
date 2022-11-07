@@ -56,6 +56,8 @@ public class BeaconActivity extends AppCompatActivity {
     // lin 폴더에 android-beacon-library-2.17.1.aar 포함되어 있음
     // java 에서의 lib 는 .jar 형태지만 .arr 경우는 jar  포함한 소스도 포함되어 있음
 
+    ImageButton beacon_back;
+
     private TextView beacontime;
 
     //TextView textView;
@@ -83,6 +85,8 @@ public class BeaconActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beacon);
 
+        beacon_back = (ImageButton) findViewById(R.id.beacon_back) ;
+
         beacontime = findViewById(R.id.beacon_time);
         ShowTimeMethod();
 
@@ -93,6 +97,18 @@ public class BeaconActivity extends AppCompatActivity {
         listViewModal = new ListViewModal();
         // 기본 비톤검색 실패로 설정
         findBeacon = false;
+
+        beacon_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent2 = new Intent(getApplicationContext(),ListActivity.class);
+
+                intent2.putExtra("userId",listViewModal.getUserId());
+                intent2.putExtra("userPasswrd",listViewModal.getPass());
+
+                startActivity(intent2);
+            }
+        });
 
         // 인자값이 잇는 경우
         if( intent.getExtras() != null ) {

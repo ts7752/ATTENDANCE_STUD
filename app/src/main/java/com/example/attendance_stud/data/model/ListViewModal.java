@@ -2,8 +2,10 @@
 
 package com.example.attendance_stud.data.model;
 
+import android.content.Context;
+
 public class ListViewModal {
-    //userType 추가함
+
     private String userId;
     private String pass;
     private Integer TtOrder;
@@ -20,7 +22,6 @@ public class ListViewModal {
     private String gubun;
     private String TtDay;
 
-    //userType 추가함 ListActivity 에서 사용함.
 
     public void setUserId(String userId) {
         this.userId = userId;
@@ -83,7 +84,6 @@ public class ListViewModal {
     }
 
 
-    //userType 추가함
 
     public String getUserId() {
         return userId;
