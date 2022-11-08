@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -42,6 +43,9 @@ public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
     private ActivityLoginBinding binding;
+    private InputMethodManager imm;
+
+    EditText editText;
 
 
     public static Context context;
@@ -51,6 +55,10 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        editText = (EditText)findViewById(R.id.password);
+
+         imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+
 
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -156,6 +164,13 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity( intent );
             }
         });
+
+    }
+        public void hideKeyboard(View v) {
+            InputMethodManager var10000 = this.imm;
+            if (var10000 != null){
+             var10000.hideSoftInputFromWindow(v.getWindowToken(), 0);
+            }
     }
 
     private void updateUiWithUser(LoggedInUserView model) {
