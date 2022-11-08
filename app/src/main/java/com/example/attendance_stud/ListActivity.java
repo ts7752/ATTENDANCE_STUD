@@ -108,12 +108,6 @@ public class ListActivity extends AppCompatActivity implements NavigationView.On
             password = intent.getExtras().get( "userPasswrd" ).toString();
             //}
 
-
-
-
-
-
-
             try {
                 // 백그라운드로 WEB service(Servlet) 호출
                 BackgroundAsyncTask bkSync = new BackgroundAsyncTask();
@@ -284,7 +278,7 @@ public class ListActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        // 네비게이션 드로어에서 헤더 이미지 또는 텍스트뷰 컨트롤 할 수있음.
+        // 네비게이션 드로어에서 헤더 이미지 또는 텍스트뷰 컨트롤 할 수있음. ** 변수에 값이 생기고 난 후 이 코드를 작성하여야 함.
         navigationView.setNavigationItemSelectedListener(this);
 
         View nav_header_view = navigationView.getHeaderView(0);

@@ -42,9 +42,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
     private ActivityLoginBinding binding;
-    public String name_pass;
 
-    public EditText usernameEditText;
 
     public static Context context;
 
@@ -53,10 +51,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-       usernameEditText = findViewById(R.id.username);
-
-        context = this;
 
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -141,7 +135,6 @@ public class LoginActivity extends AppCompatActivity {
             // 로그인 버튼이 선택되어을 경우
             @Override
             public void onClick(View v) {
-                name_pass = usernameEditText.getText().toString();
 
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 //loginViewModel.login(usernameEditText.getText().toString(),
