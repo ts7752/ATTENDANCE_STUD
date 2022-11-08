@@ -8,11 +8,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -22,6 +27,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.attendance_stud.data.model.ListViewModal;
 import com.example.attendance_stud.ui.login.LoginActivity;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,9 +38,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class ListActivity extends AppCompatActivity {
+public class ListActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    public static Context context;
 
     private ListView list;
     private String objId;
@@ -44,9 +49,12 @@ public class ListActivity extends AppCompatActivity {
 
     private String listBuf;
 
-    private String username;
-    private String password;
-    private String userId;
+    public String username;
+    public String password;
+    public int number;
+
+
+
     //Type 추가함.
 
     @SuppressLint("MissingInflatedId")
@@ -54,8 +62,7 @@ public class ListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-
-        context = this;
+        number = 1;
 
         androidx.appcompat.widget.Toolbar toolbar = (androidx.appcompat.widget.Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -63,8 +70,9 @@ public class ListActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.menubutton_foreground);
 
+
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
-        navigationView = (NavigationView)findViewById(R.id.navigation_view);
+        NavigationView navigationView = (NavigationView)findViewById(R.id.navigation_view);
 
 
         //Type값 저장을 위해 JSONObject 선언.
@@ -89,6 +97,7 @@ public class ListActivity extends AppCompatActivity {
         SimpleDateFormat sdfNow = new SimpleDateFormat("yyyy-MM-dd");
         String Time = sdfNow.format(mDate);
 
+
         // LoginActivity 에서 인자값이 있엇는지 확인
         if( intent.getExtras() != null ) {
             //if( intent.getExtras().containkey( "OBJ_ID" ) ) {
@@ -98,6 +107,13 @@ public class ListActivity extends AppCompatActivity {
             username = intent.getExtras().get( "userId" ).toString();
             password = intent.getExtras().get( "userPasswrd" ).toString();
             //}
+
+
+
+
+
+
+
             try {
                 // 백그라운드로 WEB service(Servlet) 호출
                 BackgroundAsyncTask bkSync = new BackgroundAsyncTask();
@@ -199,7 +215,7 @@ public class ListActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-        adapter.notifyDataSetChanged();
+
 
 
 
@@ -267,6 +283,17 @@ public class ListActivity extends AppCompatActivity {
                 //Toast.makeText(getApplicationContext(), (i+1)+"번째 아이템이 삭제되었습니다.", Toast.LENGTH_SHORT).show();
             }
         });
+
+        // 네비게이션 드로어에서 헤더 이미지 또는 텍스트뷰 컨트롤 할 수있음.
+        navigationView.setNavigationItemSelectedListener(this);
+
+        View nav_header_view = navigationView.getHeaderView(0);
+        TextView nav_header_pass_text = (TextView)nav_header_view.findViewById(R.id.tv_info);
+        TextView nav_header_id_text = (TextView) nav_header_view.findViewById(R.id.textView6);
+
+        nav_header_id_text.setText(username);
+        nav_header_pass_text.setText(password);
+
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
@@ -293,18 +320,9 @@ public class ListActivity extends AppCompatActivity {
         startActivity( intent );
     }
 
-    public void setUserId(){ this.userId = userId;}
 
-    public String getUserId() {return userId;}
-
-
-    Intent intent3 = new Intent(getApplicationContext(),navi_header_1.class);
-
-
-
-
-
-
-
-
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return false;
+    }
 }

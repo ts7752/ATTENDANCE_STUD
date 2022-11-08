@@ -4,6 +4,7 @@ package com.example.attendance_stud.ui.login;
 import android.app.Activity;
 //import android.arch.lifecycle.Observer;
 //import android.arch.lifecycle.ViewModelProvider;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 //import android.support.annotation.Nullable;
@@ -27,6 +28,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.attendance_stud.BeaconActivity;
 import com.example.attendance_stud.ListActivity;
 import com.example.attendance_stud.R;
 import com.example.attendance_stud.ui.login.LoginViewModel;
@@ -40,12 +42,21 @@ public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
     private ActivityLoginBinding binding;
+    public String name_pass;
+
+    public EditText usernameEditText;
+
+    public static Context context;
 
     long backKeyPressedTime = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+       usernameEditText = findViewById(R.id.username);
+
+        context = this;
 
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -130,6 +141,7 @@ public class LoginActivity extends AppCompatActivity {
             // 로그인 버튼이 선택되어을 경우
             @Override
             public void onClick(View v) {
+                name_pass = usernameEditText.getText().toString();
 
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 //loginViewModel.login(usernameEditText.getText().toString(),
@@ -137,11 +149,11 @@ public class LoginActivity extends AppCompatActivity {
 
                 // ListActivity 화면 생성
                 Intent intent = new Intent( getApplicationContext(), ListActivity.class );
-
                 //Log.i("log message","TRACE_A");
                 // 넘길 인자값 설정
                 intent.putExtra( "userId", usernameEditText.getText().toString() );
                 intent.putExtra( "userPasswrd", passwordEditText.getText().toString() );
+
 
                 //Log.i("log message","TRACE_B");
                 //Log.i("log message",bkSync.getJsonStr());
@@ -157,6 +169,8 @@ public class LoginActivity extends AppCompatActivity {
         String welcome = getString(R.string.welcome) + model.getDisplayName();
         // TODO : initiate successful logged in experience
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
+
+
     }
 
     private void showLoginFailed(@StringRes Integer errorString) {
@@ -176,5 +190,7 @@ public class LoginActivity extends AppCompatActivity {
         }
         backKeyPressedTime = System.currentTimeMillis();
     }
+
+
 
 }
