@@ -52,7 +52,6 @@ public class ListActivity extends AppCompatActivity {
     private String username;
     private String password;
     private String userId;
-    //Type 추가함.
 
     @SuppressLint("MissingInflatedId")
     @Override
