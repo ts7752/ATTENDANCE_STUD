@@ -43,7 +43,8 @@
         <activity
             android:name=".ListActivity"
             android:exported="false"
-            android:label="오늘 시간표" />
+            android:label="         오늘 시간표"
+            />
         <activity
             android:name=".BeaconActivity"
             android:exported="false"

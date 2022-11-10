@@ -56,7 +56,7 @@ public class BeaconActivity extends AppCompatActivity {
     // lin 폴더에 android-beacon-library-2.17.1.aar 포함되어 있음
     // java 에서의 lib 는 .jar 형태지만 .arr 경우는 jar  포함한 소스도 포함되어 있음
 
-    ImageButton beacon_back;
+    ImageButton beacon_back, imt_help;
 
     private TextView beacontime;
 
@@ -86,9 +86,27 @@ public class BeaconActivity extends AppCompatActivity {
         setContentView(R.layout.activity_beacon);
 
         beacon_back = (ImageButton) findViewById(R.id.beacon_back) ;
-
+        imt_help = (ImageButton) findViewById(R.id.imt_help);
         beacontime = findViewById(R.id.beacon_time);
         ShowTimeMethod();
+
+        imt_help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder ad = new AlertDialog.Builder(BeaconActivity.this);
+                ad.setIcon(R.mipmap.baeacon_scan_help_2_round);
+                ad.setTitle("도움말");
+                ad.setMessage("강의실이 검색되지 않아요\n\n1. 블루투스를 껐다가 다시 켜주세요\n2. GPS(위치)가 켜져 있는지 확인해 주세요.\n3. 휴대폰을 재부팅 해 주세요.\n4. 네트워크 초기화를 진행 해주세요.");
+
+                ad.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    }
+                });
+                ad.show();
+            }
+        });
 
         // 피호출시 인자값 확인위해 선언
         Intent intent = getIntent();

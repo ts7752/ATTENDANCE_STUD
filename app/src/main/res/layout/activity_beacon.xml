@@ -65,5 +65,14 @@
         tools:layout_editor_absoluteY="6dp"
         tools:ignore="MissingConstraints" />
 
+    <ImageButton
+        android:id="@+id/imt_help"
+        android:layout_width="36dp"
+        android:layout_height="42dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/baeacon_scan_help_2_round"
+        tools:ignore="MissingConstraints" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
