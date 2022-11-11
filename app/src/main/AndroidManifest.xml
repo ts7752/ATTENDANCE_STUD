@@ -9,7 +9,9 @@
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-feature android:name="android.hardware.sensor.compass"
+
+    <uses-feature
+        android:name="android.hardware.sensor.compass"
         android:required="true" />
 
     <application
@@ -23,6 +25,25 @@
         android:theme="@style/Theme.ATTENDANCE_STUD"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".Seclect"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".Loading"
             android:exported="true">
@@ -43,8 +64,7 @@
         <activity
             android:name=".ListActivity"
             android:exported="false"
-            android:label="         오늘 시간표"
-            />
+            android:label="         오늘 시간표" />
         <activity
             android:name=".BeaconActivity"
             android:exported="false"

@@ -1,18 +1,12 @@
 package com.example.attendance_stud.ui.login;
 
-// 11.02 14:52 교수용 학생용 구분을 위해 Type추가함.
+import android.annotation.SuppressLint;
 import android.app.Activity;
-//import android.arch.lifecycle.Observer;
-//import android.arch.lifecycle.ViewModelProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-//import android.support.annotation.Nullable;
-//import android.support.annotation.StringRes;
-//import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -29,15 +23,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.attendance_stud.BeaconActivity;
 import com.example.attendance_stud.ListActivity;
 import com.example.attendance_stud.R;
-import com.example.attendance_stud.ui.login.LoginViewModel;
-import com.example.attendance_stud.ui.login.LoginViewModelFactory;
+import com.example.attendance_stud.RegisterActivity;
 import com.example.attendance_stud.databinding.ActivityLoginBinding;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -52,10 +41,15 @@ public class LoginActivity extends AppCompatActivity {
 
     long backKeyPressedTime = 0;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+
         editText = (EditText)findViewById(R.id.password);
+
+
 
          imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 
@@ -164,6 +158,8 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity( intent );
             }
         });
+
+
 
     }
         public void hideKeyboard(View v) {
