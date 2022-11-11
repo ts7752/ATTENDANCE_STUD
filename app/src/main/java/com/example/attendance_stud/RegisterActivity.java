@@ -21,9 +21,9 @@ import org.json.JSONObject;
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText et_id,et_pass,et_name,et_phonenumber,et_hakgua,et_hakbun,et_gubun;
-    private Button btn_register;
+    private Button btn_register,btn_register_back;
 
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint({"MissingInflatedId", "WrongViewCast"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +37,15 @@ public class RegisterActivity extends AppCompatActivity {
         et_gubun = findViewById(R.id.et_gubun);
         et_hakbun = findViewById(R.id.et_hakbun);
         et_phonenumber = findViewById(R.id.et_phonenumber);
+        btn_register_back = findViewById(R.id.btn_register_back);
+
+        btn_register_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentback = new Intent(getApplicationContext(),Seclect.class);
+                startActivity(intentback);
+            }
+        });
 
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override

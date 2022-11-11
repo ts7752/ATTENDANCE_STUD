@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity">
+    tools:context=".RegisterActivity"
+    android:background="#ffffff"
+    >
 
     <EditText
         android:id="@+id/et_name"
@@ -16,6 +18,7 @@
         android:ems="10"
         android:hint="이름"
         android:inputType="textPersonName"
+        android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="@+id/et_pass"
         app:layout_constraintStart_toStartOf="@+id/et_pass"
         app:layout_constraintTop_toBottomOf="@+id/et_pass" />
@@ -30,6 +33,7 @@
         android:ems="10"
         android:hint="전화번호"
         android:inputType="textPersonName"
+        android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="@+id/et_name"
         app:layout_constraintStart_toStartOf="@+id/et_name"
         app:layout_constraintTop_toBottomOf="@+id/et_name" />
@@ -44,6 +48,7 @@
         android:ems="10"
         android:hint="비밀번호"
         android:inputType="textPersonName"
+        android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="@+id/et_id"
         app:layout_constraintStart_toStartOf="@+id/et_id"
         app:layout_constraintTop_toBottomOf="@+id/et_id" />
@@ -85,6 +90,7 @@
         android:ems="10"
         android:hint="학번"
         android:inputType="textPassword"
+        android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="@+id/et_hakgua"
         app:layout_constraintStart_toStartOf="@+id/et_hakgua"
         app:layout_constraintTop_toBottomOf="@+id/et_hakgua" />
@@ -99,6 +105,7 @@
         android:ems="10"
         android:hint="힉과"
         android:inputType="textPersonName"
+        android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -113,8 +120,19 @@
         android:ems="10"
         android:hint="교수,학생 스피너 넣을 것임 유형구분"
         android:inputType="textPersonName"
+        android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="@+id/et_phonenumber"
         app:layout_constraintStart_toStartOf="@+id/et_phonenumber"
         app:layout_constraintTop_toBottomOf="@+id/et_phonenumber" />
+
+    <Button
+        android:id="@+id/btn_register_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="돌아가기"
+        app:layout_constraintEnd_toEndOf="@+id/btn_register"
+        app:layout_constraintStart_toStartOf="@+id/btn_register"
+        app:layout_constraintTop_toBottomOf="@+id/btn_register" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

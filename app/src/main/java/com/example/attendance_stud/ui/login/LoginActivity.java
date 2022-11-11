@@ -36,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText editText;
 
+    Button button_register;
 
     public static Context context;
 
@@ -48,6 +49,15 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         editText = (EditText)findViewById(R.id.password);
+        button_register = findViewById(R.id.button_register);
+
+        button_register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentregister = new Intent(getApplicationContext(),RegisterActivity.class);
+                startActivity(intentregister);
+            }
+        });
 
 
 
