@@ -58,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
                             boolean success = jsonObject.getBoolean("success");
                             if (success){ //회원등록 성공
                                 Toast.makeText(getApplicationContext(),"회원가입에 성공 하였습니다.", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(getApplicationContext(), Seclect.class);
+                                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                                 startActivity(intent);
                             }
                             else {
