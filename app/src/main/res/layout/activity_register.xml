@@ -73,11 +73,10 @@
         android:id="@+id/btn_register"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:text="회원가입"
-        app:layout_constraintEnd_toEndOf="@+id/et_gubun"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/et_gubun"
+        app:layout_constraintEnd_toEndOf="@+id/et_phonenumber"
+        app:layout_constraintStart_toStartOf="@+id/et_phonenumber"
         app:layout_constraintTop_toBottomOf="@+id/et_gubun" />
 
     <EditText
@@ -100,30 +99,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="51dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
-        android:hint="힉과"
+        android:hint="학과"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/et_gubun"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:hint="교수,학생 스피너 넣을 것임 유형구분"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        app:layout_constraintEnd_toEndOf="@+id/et_phonenumber"
-        app:layout_constraintStart_toStartOf="@+id/et_phonenumber"
-        app:layout_constraintTop_toBottomOf="@+id/et_phonenumber" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner" />
 
     <Button
         android:id="@+id/btn_register_back"
@@ -134,5 +118,29 @@
         app:layout_constraintEnd_toEndOf="@+id/btn_register"
         app:layout_constraintStart_toStartOf="@+id/btn_register"
         app:layout_constraintTop_toBottomOf="@+id/btn_register" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="1dp"
+        android:entries="@array/Gubun"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/et_gubun"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="타입 구분"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/et_phonenumber"
+        app:layout_constraintStart_toStartOf="@+id/et_phonenumber"
+        app:layout_constraintTop_toBottomOf="@+id/et_phonenumber" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

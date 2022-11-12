@@ -6,8 +6,11 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -20,8 +23,10 @@ import org.json.JSONObject;
     //회원가입 기능 구현 확인완료 11.11 17:22
 public class RegisterActivity extends AppCompatActivity {
 
-    private EditText et_id,et_pass,et_name,et_phonenumber,et_hakgua,et_hakbun,et_gubun;
+    private EditText et_id,et_pass,et_name,et_phonenumber,et_hakgua,et_hakbun;
     private Button btn_register,btn_register_back;
+    private TextView et_gubun;
+    private Spinner spinner;
 
     @SuppressLint({"MissingInflatedId", "WrongViewCast"})
     @Override
@@ -38,6 +43,21 @@ public class RegisterActivity extends AppCompatActivity {
         et_hakbun = findViewById(R.id.et_hakbun);
         et_phonenumber = findViewById(R.id.et_phonenumber);
         btn_register_back = findViewById(R.id.btn_register_back);
+        spinner = findViewById(R.id.spinner);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                et_gubun.setText(parent.getItemAtPosition(position).toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
 
         btn_register_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +66,7 @@ public class RegisterActivity extends AppCompatActivity {
                 startActivity(intentback);
             }
         });
+
 
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
