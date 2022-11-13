@@ -141,6 +141,7 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="@+id/et_phonenumber"
         app:layout_constraintStart_toStartOf="@+id/et_phonenumber"
-        app:layout_constraintTop_toBottomOf="@+id/et_phonenumber" />
+        app:layout_constraintTop_toBottomOf="@+id/et_phonenumber"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
