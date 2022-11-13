@@ -65,7 +65,7 @@ public class RegisterActivity extends AppCompatActivity {
         btn_register_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentback = new Intent(getApplicationContext(),Seclect.class);
+                Intent intentback = new Intent(getApplicationContext(),LoginActivity.class);
                 startActivity(intentback);
             }
         });

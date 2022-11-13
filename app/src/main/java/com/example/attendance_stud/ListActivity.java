@@ -40,7 +40,7 @@ import java.util.List;
 public class ListActivity extends AppCompatActivity {
 
 
-
+    public static Object context;
     private ListView list;
     private String objId;
 
