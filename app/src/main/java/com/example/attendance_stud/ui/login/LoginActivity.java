@@ -49,15 +49,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         editText = (EditText)findViewById(R.id.password);
-        button_register = findViewById(R.id.button_register);
 
-        button_register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentregister = new Intent(getApplicationContext(),RegisterActivity.class);
-                startActivity(intentregister);
-            }
-        });
 
 
 
@@ -74,6 +66,7 @@ public class LoginActivity extends AppCompatActivity {
         final EditText passwordEditText = binding.password;
         final Button loginButton = binding.login;
         final ProgressBar loadingProgressBar = binding.loading;
+        final Button button_register = binding.buttonRegister; // 2022.11.12 회원가입 페이지 전환 추가 성공
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
@@ -166,6 +159,16 @@ public class LoginActivity extends AppCompatActivity {
                 //Log.i("log message",bkSync.getStatus().toString());
                 // 화면에 보여준
                 startActivity( intent );
+            }
+        });
+
+
+
+        button_register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentregister = new Intent(getApplicationContext(),RegisterActivity.class);
+                startActivity(intentregister);
             }
         });
 
