@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -44,6 +45,8 @@ public class RegisterActivity extends AppCompatActivity {
         et_phonenumber = findViewById(R.id.et_phonenumber);
         btn_register_back = findViewById(R.id.btn_register_back);
         spinner = findViewById(R.id.spinner);
+
+        et_gubun.setInputType(InputType.TYPE_NULL);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
