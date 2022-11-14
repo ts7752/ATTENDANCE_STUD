@@ -36,8 +36,6 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText editText;
 
-    Button button_register;
-
     public static Context context;
 
     long backKeyPressedTime = 0;
@@ -49,9 +47,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         editText = (EditText)findViewById(R.id.password);
-
-
-
 
          imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 

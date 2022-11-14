@@ -1,11 +1,15 @@
 package com.example.attendance_stud;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -25,9 +29,12 @@ import org.json.JSONObject;
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText et_id,et_pass,et_name,et_phonenumber,et_hakgua,et_hakbun;
-    private Button btn_register,btn_register_back;
+    private Button btn_register;
+    private Button btn_register_back;
     private TextView et_gubun;
     private Spinner spinner;
+
+    String id,pass,name,phonenumber,hakgua,hakbun;
 
     @SuppressLint({"MissingInflatedId", "WrongViewCast"})
     @Override
@@ -59,6 +66,54 @@ public class RegisterActivity extends AppCompatActivity {
 
             }
         });
+
+
+        // 버튼 기본 설정 (비활성화)
+        btn_register.setEnabled(false);
+
+        et_id.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+            //값이 없다면 비활성화 모든 값이 들어가 있다면 활성화
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                id = et_id.getText().toString();
+                pass = et_pass.getText().toString();
+                name = et_name.getText().toString();
+                phonenumber = et_phonenumber.getText().toString();
+                hakgua = et_hakgua.getText().toString();
+                hakbun = et_hakbun.getText().toString();
+
+                //문자열이 0보다 적다면 버튼 비활성화
+                if (id.length() <= 0){
+                    if (pass.length() <= 0){
+                        if (name.length() <= 0){
+                            if (phonenumber.length() <= 0){
+                                if (hakgua.length() <= 0){
+                                    if (hakbun.length() <= 0){
+                                        btn_register.setEnabled(false);
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                //모든 값이 입력되었다면 버튼 활성화
+                else {
+                    btn_register.setEnabled(true);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
 
 
 
