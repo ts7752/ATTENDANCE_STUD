@@ -207,6 +207,9 @@ public class ListActivity extends AppCompatActivity {
                             listViewModal.setTtUuid1(object.getString("TT_UUID1"));
                             listViewModal.setTtUuid2(object.getString("TT_UUID2"));
                             listViewModal.setTtUuid3(object.getString("TT_UUID3"));
+                            listViewModal.setTtUuid4(object.getString("TT_UUID4"));
+                            listViewModal.setTtUuid5(object.getString("TT_UUID5"));
+                            listViewModal.setTtUuid6(object.getString("TT_UUID6"));
                             listViewModal.setGubun(object.getString("GUBUN"));
                             listViewModal.setTtDay(object.getString("TT_DAY"));
 
@@ -266,6 +269,9 @@ public class ListActivity extends AppCompatActivity {
                     Log.i("log message", dataModel.get(i).getTtUuid1());
                     Log.i("log message", dataModel.get(i).getTtUuid2());
                     Log.i("log message", dataModel.get(i).getTtUuid3());
+                    Log.i("log message", dataModel.get(i).getTtUuid4());
+                    Log.i("log message", dataModel.get(i).getTtUuid5());
+                    Log.i("log message", dataModel.get(i).getTtUuid6());
                     Log.i("log message", dataModel.get(i).getGubun());
 
 
@@ -291,6 +297,9 @@ public class ListActivity extends AppCompatActivity {
                         intent.putExtra("TT_UUID1", dataModel.get(i).getTtUuid1());
                         intent.putExtra("TT_UUID2", dataModel.get(i).getTtUuid2());
                         intent.putExtra("TT_UUID3", dataModel.get(i).getTtUuid3());
+                        intent.putExtra("TT_UUID4", dataModel.get(i).getTtUuid4());
+                        intent.putExtra("TT_UUID5", dataModel.get(i).getTtUuid5());
+                        intent.putExtra("TT_UUID6", dataModel.get(i).getTtUuid6());
                         intent.putExtra("GUBUN", dataModel.get(i).getGubun());
                         intent.putExtra("TT_DAY", dataModel.get(i).getTtDay());
 

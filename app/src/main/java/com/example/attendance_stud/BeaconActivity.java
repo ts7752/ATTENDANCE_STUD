@@ -144,6 +144,9 @@ public class BeaconActivity extends AppCompatActivity {
             listViewModal.setTtUuid1(intent.getExtras().get("TT_UUID1").toString());
             listViewModal.setTtUuid2(intent.getExtras().get("TT_UUID2").toString());
             listViewModal.setTtUuid3(intent.getExtras().get("TT_UUID3").toString());
+            listViewModal.setTtUuid4(intent.getExtras().get("TT_UUID4").toString());
+            listViewModal.setTtUuid5(intent.getExtras().get("TT_UUID5").toString());
+            listViewModal.setTtUuid6(intent.getExtras().get("TT_UUID6").toString());
             listViewModal.setGubun(intent.getExtras().get("GUBUN").toString());
             listViewModal.setTtDay(intent.getExtras().get("TT_DAY").toString());
         }
@@ -228,10 +231,13 @@ public class BeaconActivity extends AppCompatActivity {
                     Log.d(TAG, "This beacon is far away from "+beacon.getDistance()+"m");
 
                     Log.d(TAG, "listViewModal:"+listViewModal.getTtUuid1()+", "+listViewModal.getTtUuid2()+", "+listViewModal.getTtUuid3());
+                    Log.d(TAG, "listViewModal:"+listViewModal.getTtUuid4()+", "+listViewModal.getTtUuid5()+", "+listViewModal.getTtUuid6());
+                    Log.d(TAG, "listViewModal:"+uuid+", "+major+", "+minor);
                     Log.d(TAG, "listViewModal:"+uuid+", "+major+", "+minor);
 
                     // ID 와 전 Servlet 호출시 시간표외 id 받아온것과 비교
-                    if (uuid.equals(listViewModal.getTtUuid1()) && major.equals(listViewModal.getTtUuid2()) && minor.equals(listViewModal.getTtUuid3()) )
+                    if ( (uuid.equals(listViewModal.getTtUuid1()) && major.equals(listViewModal.getTtUuid2()) && minor.equals(listViewModal.getTtUuid3())) ||
+                            (uuid.equals(listViewModal.getTtUuid4()) && major.equals(listViewModal.getTtUuid5()) && minor.equals(listViewModal.getTtUuid6())) )
                         {
                             // 일치하면 비톤 찾기성공
                             findBeacon = true;

@@ -19,6 +19,9 @@ public class ListViewModal {
     private String TtUuid1;
     private String TtUuid2;
     private String TtUuid3;
+    private String TtUuid4;
+    private String TtUuid5;
+    private String TtUuid6;
     private String gubun;
     private String TtDay;
 
@@ -73,6 +76,18 @@ public class ListViewModal {
 
     public void setTtUuid3(String ttUuid3) {
         TtUuid3 = ttUuid3;
+    }
+
+    public void setTtUuid4(String ttUuid4) {
+        TtUuid4 = ttUuid4;
+    }
+
+    public void setTtUuid5(String ttUuid5) {
+        TtUuid5 = ttUuid5;
+    }
+
+    public void setTtUuid6(String ttUuid6) {
+        TtUuid6 = ttUuid6;
     }
 
     public void setGubun(String gubun) {
@@ -135,6 +150,18 @@ public class ListViewModal {
 
     public String getTtUuid3() {
         return TtUuid3;
+    }
+
+    public String getTtUuid4() {
+        return TtUuid4;
+    }
+
+    public String getTtUuid5() {
+        return TtUuid5;
+    }
+
+    public String getTtUuid6() {
+        return TtUuid6;
     }
 
     public String getGubun() {
