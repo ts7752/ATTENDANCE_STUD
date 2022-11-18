@@ -90,128 +90,152 @@ public class ListActivity extends AppCompatActivity {
         Date mDate = new Date(now);
         SimpleDateFormat sdfNow = new SimpleDateFormat("yyyy-MM-dd");
         String Time = sdfNow.format(mDate);
+                // LoginActivity 에서 인자값이 있엇는지 확인
+                if (intent.getExtras() != null) {
+                    //if( intent.getExtras().containkey( "OBJ_ID" ) ) {
+                    // 인자값을 가져오기
 
-        // LoginActivity 에서 인자값이 있엇는지 확인
-        if( intent.getExtras() != null ) {
-            //if( intent.getExtras().containkey( "OBJ_ID" ) ) {
-            // 인자값을 가져오기
+                    //로그인엑티비티에서 입력된 값 확인.
+                    username = intent.getExtras().get("userId").toString();
+                    password = intent.getExtras().get("userPasswrd").toString();
+                    //}
+                    try {
+                        // 백그라운드로 WEB service(Servlet) 호출
+                        BackgroundAsyncTask bkSync = new BackgroundAsyncTask();
 
-            //로그인엑티비티에서 입력된 값 확인.
-            username = intent.getExtras().get( "userId" ).toString();
-            password = intent.getExtras().get( "userPasswrd" ).toString();
-            //}
-            try {
-                // 백그라운드로 WEB service(Servlet) 호출
-                BackgroundAsyncTask bkSync = new BackgroundAsyncTask();
+                        // URL 주소는 동일하고 뒷단에 Servlet 명만 다르게 넘김
+                        bkSync.execute(username, password, "Login");
 
-                // URL 주소는 동일하고 뒷단에 Servlet 명만 다르게 넘김
-                bkSync.execute(username,password,"Login");
-
-                // 위 bkSync.execute 작업으로 url 연결하여 서비스 호출 및 결과를 받아올때까지 기다림
-                while (true) {
-                    // 체크를 해봐서 리턴값이 있으면 while 빠져 나와서 후단 로직 수행
-                    if (bkSync.getJsonStat() == true) break;
-                }
-                // JSON 결과물을 받아오기
-                objId = bkSync.getJsonStr();
-
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            // 호출결과를 화면에 출력해주는거 외에 선택이 되었을때 몇번째 대상인지를 알기 위해 in,out 클래스 생성
-            ListViewModal listViewModal = new ListViewModal();
-            try {
-                // 결과물을 JSON 으로 사용하도록 선언
-                JSONObject responseJSON = new JSONObject(objId);
-
-                // id/password 결과가 다른경우
-                if (responseJSON.get("RSLT_CD").toString().equals("N"))
-                {
-                    // 메세지박스로 출력
-                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    builder.setMessage("아이디 또는 비밀번호가 일치하지 않습니다.");
-                    builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            // 확인시 리스트 화면으로 이동
-                            // 뒤로 가기 이벤트 함수를 호출
-                            onBackPressed();
+                        // 위 bkSync.execute 작업으로 url 연결하여 서비스 호출 및 결과를 받아올때까지 기다림
+                        while (true) {
+                            // 체크를 해봐서 리턴값이 있으면 while 빠져 나와서 후단 로직 수행
+                           if (bkSync.getJsonStat() == true) {
+                               break;
+                           }
 
                         }
-                    });
+                        // JSON 결과물을 받아오기
+                        objId = bkSync.getJsonStr();
 
-                    AlertDialog alertDialog = builder.create();
-                    // 메세지박스 보여줌
-                    alertDialog.show();
-                }
 
-                String navi_view1 = responseJSON.get("USER_DEP_CD").toString();
-                String navi_view2 = responseJSON.get("USER_NM").toString();
-                String navi_view3 = responseJSON.get("USER_DEP_NM").toString();
 
-                View view = navigationView.getHeaderView(0);
-                TextView txtView1 = view.findViewById(R.id.tv_name);
-                TextView txtView2 = view.findViewById(R.id.tv_info);
 
-                txtView1.setText(navi_view1+" / "+navi_view2);
-                txtView2.setText(navi_view3);
-
-                // id/password 결과가 같은경우
-                // JSON 내에 시간표 배열을 찾는다
-                JSONArray jsonArray = responseJSON.getJSONArray("TT_LIST");
-                // 대상 건수만큼 loop  처리
-
-                //Type 조건문 추가함
-
-                    for (int i = 0; i < jsonArray.length(); i++) {
-
-                        // 한개의 배열내에 항목을 추출하기위해 object 로 변환
-                        JSONObject object = jsonArray.getJSONObject(i);
-                        listViewModal = new ListViewModal();
-
-                        listBuf = null;
-
-                        // ListViewModal 단일 in,out 에 값 셋팅
-                        listViewModal.setUserId(responseJSON.getString("userId"));
-                        listViewModal.setPass(responseJSON.getString("userPasswrd"));
-                        listViewModal.setTtOrder(object.getInt("TT_ORDER"));
-                        listViewModal.setTtTimeStart(object.getString("TT_TIME_START"));
-                        listViewModal.setTtTimeEnd(object.getString("TT_TIME_END"));
-                        listViewModal.setTtCourseNm(object.getString("TT_COURSE_NM"));
-                        listViewModal.setTtTeachNm(object.getString("TT_TEACH_NM"));
-                        listViewModal.setTtClassRoom(object.getString("TT_CLASS_ROOM"));
-                        listViewModal.setTtStaffNum(object.getInt("TT_STAFF_NUM"));
-                        listViewModal.setTtClassNo(object.getString("TT_CLASS_NO"));
-                        listViewModal.setTtUuid1(object.getString("TT_UUID1"));
-                        listViewModal.setTtUuid2(object.getString("TT_UUID2"));
-                        listViewModal.setTtUuid3(object.getString("TT_UUID3"));
-                        listViewModal.setGubun(object.getString("GUBUN"));
-                        listViewModal.setTtDay(object.getString("TT_DAY"));
-
-                        // 한행의 대상을 add ( 다건으로 쌓임)
-                        dataModel.add(listViewModal);
-
-                        // ListView 에 보여주기 위한 jSON 리턴항목을 문자열 조합
-                        listBuf = object.getString("TT_ORDER").concat(" 교시\n");
-                        listBuf = listBuf.concat(Time).concat(" ").concat(object.getString("TT_TIME_START")).concat("~").concat(object.getString("TT_TIME_END")).concat("\n");
-                        listBuf = listBuf.concat(object.getString("TT_CLASS_ROOM")).concat(".").concat(object.getString("TT_COURSE_NM")).concat(".").concat(object.getString("TT_TEACH_NM")).concat("\n");
-                        listBuf = listBuf.concat("출결상태 : ").concat(object.getString("GUBUN"));
-
-                        // 조합한 문자영을 추가 ( 결국 리스트 뷰에 한행 추가됨)
-                        data.add(listBuf);
-
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
+                    // 호출결과를 화면에 출력해주는거 외에 선택이 되었을때 몇번째 대상인지를 알기 위해 in,out 클래스 생성
+                    ListViewModal listViewModal = new ListViewModal();
+                    try {
+                        // 결과물을 JSON 으로 사용하도록 선언
+                        JSONObject responseJSON = new JSONObject(objId);
 
-                // 시간표 배열이 한건도 없는 경우
-                if (jsonArray.length() == 0) {
-                    data.add("강의 시간표 목록이 없습니다.");
-                    listViewModal.setGubun("출석");
+                            //저장된 데이터 베이스에 값이 없을 경우
+                        if (responseJSON.toString().equals("{}")){
+                            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                            builder.setMessage("아이디 또는 비밀번호가 일치하지 않습니다.");
+                            builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    // 확인시 리스트 화면으로 이동
+                                    // 뒤로 가기 이벤트 함수를 호출
+                                    onBackPressed();
+                                }
+                            });
+                            AlertDialog alertDialog = builder.create();
+                            // 메세지박스 보여줌
+                            alertDialog.show();
+                        }
+
+                        // id/password 결과가 다른경우
+                        if (responseJSON.get("RSLT_CD").toString().equals("N")) {
+                            // 메세지박스로 출력
+                            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                            builder.setMessage("아이디 또는 비밀번호가 일치하지 않습니다.");
+                            builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    // 확인시 리스트 화면으로 이동
+                                    // 뒤로 가기 이벤트 함수를 호출
+                                    onBackPressed();
+                                }
+                            });
+                            AlertDialog alertDialog = builder.create();
+                            // 메세지박스 보여줌
+                            alertDialog.show();
+
+                        }
+
+
+
+                        String navi_view1 = responseJSON.get("USER_DEP_CD").toString();
+                        String navi_view2 = responseJSON.get("USER_NM").toString();
+                        String navi_view3 = responseJSON.get("USER_DEP_NM").toString();
+
+                        View view = navigationView.getHeaderView(0);
+                        TextView txtView1 = view.findViewById(R.id.tv_name);
+                        TextView txtView2 = view.findViewById(R.id.tv_info);
+
+                        txtView1.setText(navi_view1 + " / " + navi_view2);
+                        txtView2.setText(navi_view3);
+
+                        // id/password 결과가 같은경우
+                        // JSON 내에 시간표 배열을 찾는다
+                        JSONArray jsonArray = responseJSON.getJSONArray("TT_LIST");
+                        // 대상 건수만큼 loop  처리
+
+                        //Type 조건문 추가함
+
+                        for (int i = 0; i < jsonArray.length(); i++) {
+
+                            // 한개의 배열내에 항목을 추출하기위해 object 로 변환
+                            JSONObject object = jsonArray.getJSONObject(i);
+                            listViewModal = new ListViewModal();
+
+                            listBuf = null;
+
+                            // ListViewModal 단일 in,out 에 값 셋팅
+                            listViewModal.setUserId(responseJSON.getString("userId"));
+                            listViewModal.setPass(responseJSON.getString("userPasswrd"));
+                            listViewModal.setTtOrder(object.getInt("TT_ORDER"));
+                            listViewModal.setTtTimeStart(object.getString("TT_TIME_START"));
+                            listViewModal.setTtTimeEnd(object.getString("TT_TIME_END"));
+                            listViewModal.setTtCourseNm(object.getString("TT_COURSE_NM"));
+                            listViewModal.setTtTeachNm(object.getString("TT_TEACH_NM"));
+                            listViewModal.setTtClassRoom(object.getString("TT_CLASS_ROOM"));
+                            listViewModal.setTtStaffNum(object.getInt("TT_STAFF_NUM"));
+                            listViewModal.setTtClassNo(object.getString("TT_CLASS_NO"));
+                            listViewModal.setTtUuid1(object.getString("TT_UUID1"));
+                            listViewModal.setTtUuid2(object.getString("TT_UUID2"));
+                            listViewModal.setTtUuid3(object.getString("TT_UUID3"));
+                            listViewModal.setGubun(object.getString("GUBUN"));
+                            listViewModal.setTtDay(object.getString("TT_DAY"));
+
+                            // 한행의 대상을 add ( 다건으로 쌓임)
+                            dataModel.add(listViewModal);
+
+                            // ListView 에 보여주기 위한 jSON 리턴항목을 문자열 조합
+                            listBuf = object.getString("TT_ORDER").concat(" 교시\n");
+                            listBuf = listBuf.concat(Time).concat(" ").concat(object.getString("TT_TIME_START")).concat("~").concat(object.getString("TT_TIME_END")).concat("\n");
+                            listBuf = listBuf.concat(object.getString("TT_CLASS_ROOM")).concat(".").concat(object.getString("TT_COURSE_NM")).concat(".").concat(object.getString("TT_TEACH_NM")).concat("\n");
+                            listBuf = listBuf.concat("출결상태 : ").concat(object.getString("GUBUN"));
+
+                            // 조합한 문자영을 추가 ( 결국 리스트 뷰에 한행 추가됨)
+                            data.add(listBuf);
+
+                        }
+
+
+                        // 시간표 배열이 한건도 없는 경우
+                        if (jsonArray.length() == 0) {
+                            data.add("강의 시간표 목록이 없습니다.");
+                            listViewModal.setGubun("출석");
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
+
+
         adapter.notifyDataSetChanged();
 
 

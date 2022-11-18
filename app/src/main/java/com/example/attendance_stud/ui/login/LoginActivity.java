@@ -147,14 +147,13 @@ public class LoginActivity extends AppCompatActivity {
                 intent.putExtra( "userId", usernameEditText.getText().toString() );
                 intent.putExtra( "userPasswrd", passwordEditText.getText().toString() );
 
-
                 //Log.i("log message","TRACE_B");
                 //Log.i("log message",bkSync.getJsonStr());
 
                 //Log.i("log message",bkSync.getStatus().toString());
                 // 화면에 보여준
-                startActivity( intent );
-            }
+                         startActivity(intent);
+                }
         });
 
 

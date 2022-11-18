@@ -62,7 +62,6 @@ public class BackgroundAsyncTask extends AsyncTask<String, Integer, String> {
                 if(strings[2].equals("Login")) {
                     jsonObject.put("id", strings[0]);
                     jsonObject.put("pass", strings[1]);
-                    //수정해야 할 것으로 보임(서버로 Type이 STD라고 넘겨주는 듯으로 해석함.)
                     jsonObject.put("userType", "STD");
                 } else {
                     // 출결등록시 넘어온 항목으로 JSON 만뜲
